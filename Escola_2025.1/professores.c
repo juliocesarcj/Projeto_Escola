@@ -4,22 +4,6 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include "aluno.h"
-
-#define tam_Prof 255
-#define cad_prof_sucesso -7
-#define matricula_prof_invalida -8
-#define lista_prof_cheia -9
-#define atualizacao_prof_sucesso -10
-#define matricula_prof_inexistente -11
-#define exclusao_prof_sucesso -12
-#define cpf_prof_invalido -13
-#define lista_Cheia -29
-#define matricula_invalida -30 
-#define CAD_Prof_sucesso -31
-#define atualizacao_aluno_sucesso -32
-#define exclusao_Prof -33
-#define matricula_inexistente -34
-
 int menuProf() {
     int opcaoProf;
     printf("0 - Exit\t\n1 - Cadastrar professor\t\n2 - Listar professor\t\n3 - Atualizar professor\t\n4 - Excluir professor\t\n5 - Aniversariante do mes\n");
@@ -29,8 +13,8 @@ int menuProf() {
 
 int cadastrarProf(dadosProf listaProf[], int qtdProf) {
     printf("Cadastrar Professor\n");
-    if (qtdProf == tam_Prof) {
-        return lista_Cheia;
+    if (qtdProf == TAM_PROF) {
+        return LISTA_PROFESSOR_CHEIA;
     }
 
     int matriculaProf;
@@ -38,7 +22,7 @@ int cadastrarProf(dadosProf listaProf[], int qtdProf) {
     scanf("%d", &matriculaProf);
 
     if (matriculaProf < 0) {
-        return matricula_invalida;
+        return MATRICULA_PROFESSOR_INVALIDA;
     }
     while (getchar() != '\n');
     listaProf[qtdProf].matriculaProf = matriculaProf;
@@ -65,10 +49,10 @@ int cadastrarProf(dadosProf listaProf[], int qtdProf) {
 
     if (!validarData(listaProf[qtdProf].dia_NascProf, listaProf[qtdProf].mes_NascProf, listaProf[qtdProf].ano_NascProf)) {
         printf("Data de nascimento invalida!\n");
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
-    return CAD_Prof_sucesso;
+    return CADASTRO_PROFESSOR_SUCESSO;
 }
 
 void lista_de_Prof(dadosProf listaProf[], int qtdProf) {
@@ -100,7 +84,7 @@ int atualizarProf(dadosProf listaProf[], int qtdProf) {
     scanf("%d", &matriculaProf);
 
     if (matriculaProf < 0) {
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
     for (int i = 0; i < qtdProf; i++) {
@@ -110,15 +94,15 @@ int atualizarProf(dadosProf listaProf[], int qtdProf) {
             scanf("%d", &novaMatriculaProf);
 
             if (novaMatriculaProf < 0) {
-                return matricula_invalida;
+                return MATRICULA_INVALIDA;
             }
 
             listaProf[i].matriculaProf = novaMatriculaProf;
-            return atualizacao_aluno_sucesso;
+            return CADASTRO_ALUNO_SUCESSO;
         }
     }
 
-    return matricula_prof_inexistente;
+    return MATRICULA_INEXISTENTE;
 }
 
 int excluir_Prof(dadosProf listaProf[], int qtdProf) {
@@ -128,17 +112,17 @@ int excluir_Prof(dadosProf listaProf[], int qtdProf) {
     scanf("%d", &matriculaProf);
 
     if (matriculaProf < 0) {
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
     for (int i = 0; i < qtdProf; i++) {
         if (listaProf[i].matriculaProf == matriculaProf && listaProf[i].ativoProf) {
             listaProf[i].ativoProf = 0;
-            return exclusao_Prof;
+            return EXCLUSAO_PROFESSOR;
         }
     }
 
-    return matricula_inexistente;
+    return MATRICULA_INEXISTENTE;
 }
 
 void listarProfessoresPorSexo(dadosProf listaProf[], int qtdProf, char sexo) {

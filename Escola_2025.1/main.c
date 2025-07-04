@@ -6,59 +6,15 @@
 #include <ctype.h>
 
 
-//Feito por Julio Jesus e Angelito Chagas 
+//Feito por Julio Jesus
 
-
-
-#define MATRICULA_SUCESSO -50
-#define TURMA_LOTADA -51
-#define ALUNO_NAO_ENCONTRADO -52
-#define ALUNO_MATRICULADO -53
-#define DISCIPLINA_NAO_ENCONTRADA -53
-#define ALUNO_JA_MATRICULADO -54
-#define tam_Prof 255
-#define cad_prof_sucesso -7
-#define matricula_prof_invalida -8
-#define lista_prof_cheia -9
-#define atualizacao_prof_sucesso -10
-#define matricula_prof_inexistente -11
-#define exclusao_prof_sucesso -12
-#define cpf_prof_invalido -13
-#define lista_Cheia -29
-#define CAD_Prof_sucesso -31
-#define atualizacao_aluno_sucesso -32
-#define exclusao_Prof -33
-#define matricula_inexistente -34
-#define tam_Prof 255
-#define disciplina_invalida -19
-#define CAD_Disc_sucesso 1
-#define professor_inexistente -19
-#define cad_disc_sucesso -14
-#define codigo_disc_invalido -15
-#define lista_disc_cheia -16
-#define atualizacao_disc_sucesso -17
-#define codigo_disc_inexistente -18
-#define exclusao_disc_sucesso -19
-#define atualizacao_Disc_sucesso -21
-#define disciplina_inexistente -22
-#define exclusao_Disc -23
-#define cpf_invalido -15
-#define CAD_Aluno_sucesso -1
-#define matricula_aluno_invalida -2
-#define lista_aluno_cheia -3
-#define matricula_aluno_inexistente -5
-#define exclusao_aluno_sucesso -6
-#define matricula_invalida -24
-#define lista_Cheia_aluno -25
-#define exclusao_Aluno -27
-#define Aluno_ja_matriculado -40
-int main(void)
+int main()
 {
     int opcao, qtdAluno = 0, qtdProf = 0, qtdDisc = 0, sair = 0;
     char sexo;
-    dados listaAluno[tam_aluno];
-    dadosProf listaProf[tam_Prof];
-    Disc listaDisc[tam_Prof];
+    dados listaAluno[TAM_ALUNO];
+    dadosProf listaProf[TAM_PROF];
+    Disc listaDisc[TAM_PROF];
 
     while (!sair)
     {
@@ -86,11 +42,11 @@ int main(void)
                 case 1:
                 {
                     int retorno = cadastrarAluno(listaAluno, qtdAluno);
-                    if (retorno == lista_Cheia)
+                    if (retorno == LISTA_CHEIA_ALUNO)
                     {
                         printf("Lista cheia\n");
                     }
-                    else if (retorno == matricula_invalida)
+                    else if (retorno == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
@@ -161,15 +117,15 @@ int main(void)
                 case 3:
                 {
                     int retorno = atualizarAluno(listaAluno, qtdAluno);
-                    if (retorno == matricula_invalida)
+                    if (retorno == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
-                    else if (retorno == matricula_inexistente)
+                    else if (retorno == MATRICULA_INEXISTENTE)
                     {
                         printf("Matricula inexistente\n");
                     }
-                    else if (retorno == atualizacao_aluno_sucesso)
+                    else if (retorno == ATUALIZACAO_ALUNO_SUCESSO)
                     {
                         printf("Aluno atualizado com sucesso\n");
                     }
@@ -182,15 +138,15 @@ int main(void)
                     int matricula;
                     printf("Digite a matrícula do aluno: ");
                     scanf("%d", &matricula);
-                    if (retorno == matricula_invalida)
+                    if (retorno == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
-                    else if (retorno == matricula_inexistente)
+                    else if (retorno == MATRICULA_INEXISTENTE)
                     {
                         printf("Matricula inexistente\n");
                     }
-                    else if (retorno == exclusao_Aluno)
+                    else if (retorno == EXCLUSAO_ALUNO)
                     {
                         printf("Aluno excluido com sucesso\n");
                         qtdAluno--;
@@ -225,11 +181,11 @@ int main(void)
                 case 1:
                 {
                     int retornoProf = cadastrarProf(listaProf, qtdProf);
-                    if (retornoProf == lista_Cheia)
+                    if (retornoProf == LISTA_PROFESSOR_CHEIA)
                     {
                         printf("Lista cheia\n");
                     }
-                    else if (retornoProf == matricula_invalida)
+                    else if (retornoProf == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
@@ -292,15 +248,15 @@ int main(void)
                 case 3:
                 {
                     int retornoProf = atualizarProf(listaProf, qtdProf);
-                    if (retornoProf == matricula_invalida)
+                    if (retornoProf == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
-                    else if (retornoProf == matricula_inexistente)
+                    else if (retornoProf == MATRICULA_INEXISTENTE)
                     {
                         printf("Matricula inexistente\n");
                     }
-                    else if (retornoProf == atualizacao_aluno_sucesso)
+                    else if (retornoProf == ATUALIZACAO_ALUNO_SUCESSO)
                     {
                         printf("Professor atualizado com sucesso\n");
                     }
@@ -310,15 +266,15 @@ int main(void)
                 case 4:
                 {
                     int retornoProf = excluir_Prof(listaProf, qtdProf);
-                    if (retornoProf == matricula_invalida)
+                    if (retornoProf == MATRICULA_INVALIDA)
                     {
                         printf("Matricula invalida\n");
                     }
-                    else if (retornoProf == matricula_inexistente)
+                    else if (retornoProf == MATRICULA_INEXISTENTE)
                     {
                         printf("Matricula inexistente\n");
                     }
-                    else if (retornoProf == exclusao_Prof)
+                    else if (retornoProf == EXCLUSAO_PROFESSOR)
                     {
                         printf("Professor excluido com sucesso\n");
                         qtdProf--;
@@ -362,11 +318,11 @@ int main(void)
                 case 1:
                 {
                     int retornoDisc = cadastrar_disciplina(listaDisc, qtdDisc, listaProf, qtdProf);
-                    if (retornoDisc == lista_Cheia)
+                    if (retornoDisc == LISTA_DISCIPLINA_CHEIA)
                     {
                         printf("Lista cheia\n");
                     }
-                    else if (retornoDisc == disciplina_invalida)
+                    else if (retornoDisc == CODIGO_DISCIPLINA_INVALIDO)
                     {
                         printf("Codigo invalido\n");
                     }
@@ -428,15 +384,15 @@ int main(void)
                 case 3:
                 {
                     int retornoDisc = atualizarDisc(listaDisc, qtdDisc);
-                    if (retornoDisc == disciplina_invalida)
+                    if (retornoDisc == CODIGO_DISCIPLINA_INVALIDO)
                     {
                         printf("Codigo invalido\n");
                     }
-                    else if (retornoDisc == disciplina_inexistente)
+                    else if (retornoDisc == DISCIPLINA_INEXISTENTE)
                     {
                         printf("Disciplina inexistente\n");
                     }
-                    else if (retornoDisc == atualizacao_Disc_sucesso)
+                    else if (retornoDisc == ATUALIZACAO_DISCIPLINA_SUCESSO)
                     {
                         printf("Disciplina atualizada com sucesso\n");
                     }
@@ -446,15 +402,15 @@ int main(void)
                 case 4:
                 {
                     int retornoDisc = excluir_disciplina(listaDisc, qtdDisc);
-                    if (retornoDisc == disciplina_invalida)
+                    if (retornoDisc == CODIGO_DISCIPLINA_INVALIDO)
                     {
                         printf("Codigo invalido\n");
                     }
-                    else if (retornoDisc == disciplina_inexistente)
+                    else if (retornoDisc == DISCIPLINA_INEXISTENTE)
                     {
                         printf("Disciplina inexistente\n");
                     }
-                    else if (retornoDisc == exclusao_Disc)
+                    else if (retornoDisc == EXCLUSAO_DISCIPLINA)
                     {
                         printf("Disciplina excluida com sucesso\n");
                         qtdDisc--;

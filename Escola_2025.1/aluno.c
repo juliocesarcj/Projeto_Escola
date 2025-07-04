@@ -3,39 +3,29 @@
 #include "predefinicoes.h"
 #include <ctype.h>
 #include "disciplinas.h"
-#define cpf_invalido -15
-#define CAD_Aluno_sucesso -1
-#define matricula_aluno_invalida -2
-#define lista_aluno_cheia -3
-#define atualizacao_aluno_sucesso -4
-#define matricula_aluno_inexistente -5
-#define exclusao_aluno_sucesso -6
-#define matricula_invalida -24
-#define lista_Cheia_aluno -25
-#define matricula_inexistente -26
-#define exclusao_Aluno -27
-#define MAX_ALUNOS 90
-#define MATRICULA_SUCESSO -37
-#define TURMA_LOTADA -38
-#define ALUNO_NAO_ENCONTRADO -42
-#define ALUNO_JA_MATRICULADO -43
-#define DISCIPLINA_NAO_ENCONTRADA -44
-#define LISTA_CHEIA -45
-#define MAX_DISCIPLINAS 20
+
+// hub para os caminhos do menu aluno
 int menuAluno()
 {
     int opcaoAluno;
-    printf("0 - Exit\t\n1 - Cadastrar Aluno\t\n2 - Listar Aluno\t\n3 - Atualizar Aluno\t\n4 - Excluir Aluno\t\n5 - Matricular Aluno na Disciplina\t\n");
+    printf("0 - Exit\t\n"
+        "1 - Cadastrar Aluno\t\n"
+        "2 - Listar Aluno\t\n"
+        "3 - Atualizar Aluno\t\n"
+        "4 - Excluir Aluno\t\n"
+        "5 - Matricular Aluno na Disciplina\t\n"
+    );
     scanf("%d", &opcaoAluno);
     return opcaoAluno;
 }
 
+// cadastra o aluno
 int cadastrarAluno(dados listaAluno[], int qtdAluno)
 {
     printf("Cadastrar Aluno\n");
-    if (qtdAluno == tam_aluno)
+    if (qtdAluno == TAM_ALUNO)
     {
-        return lista_Cheia_aluno;
+        return LISTA_ALUNO_CHEIA;
     }
 
     int matricula;
@@ -44,15 +34,13 @@ int cadastrarAluno(dados listaAluno[], int qtdAluno)
 
     if (matricula < 0)
     {
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
     listaAluno[qtdAluno].matricula = matricula;
     listaAluno[qtdAluno].ativo = 1;
 
-    while (getchar() != '\n')
-        ;
-
+    while (getchar() != '\n');
     listaAluno[qtdAluno].matricula = matricula;
     listaAluno[qtdAluno].ativo = 1;
 
@@ -65,7 +53,7 @@ int cadastrarAluno(dados listaAluno[], int qtdAluno)
     if (!validar_cpf(listaAluno[qtdAluno]))
     {
         printf("CPF invalido!\n");
-        return cpf_invalido;
+        return CPF_INVALIDO;
     }
 
     printf("Digite o sexo (M/F): ");
@@ -83,12 +71,13 @@ int cadastrarAluno(dados listaAluno[], int qtdAluno)
     if (!validarData(listaAluno[qtdAluno].dia_Nasc, listaAluno[qtdAluno].mes_Nasc, listaAluno[qtdAluno].ano_Nasc))
     {
         printf("Data de nascimento invalida!\n");
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
-    return CAD_Aluno_sucesso;
+    return CADASTRO_ALUNO_SUCESSO;
 }
 
+//printa tudo de aluno
 void listar(dados listaAluno[], int qtdAluno)
 {
     printf("Listar Aluno\n");
@@ -119,6 +108,7 @@ void listar(dados listaAluno[], int qtdAluno)
     }
 }
 
+//substitui dados ja declarados por novo dados solicitados
 int atualizarAluno(dados listaAluno[], int qtdAluno)
 {
     printf("Atualizar Aluno\n");
@@ -128,7 +118,7 @@ int atualizarAluno(dados listaAluno[], int qtdAluno)
 
     if (matricula < 0)
     {
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
     for (int i = 0; i < qtdAluno; i++)
@@ -141,17 +131,18 @@ int atualizarAluno(dados listaAluno[], int qtdAluno)
 
             if (novaMatricula < 0)
             {
-                return matricula_invalida;
+                return MATRICULA_INVALIDA;
             }
 
             listaAluno[i].matricula = novaMatricula;
-            return atualizacao_aluno_sucesso;
+            return ATUALIZACAO_ALUNO_SUCESSO;
         }
     }
 
-    return matricula_inexistente;
+    return MATRICULA_ALUNO_INEXISTENTE;
 }
 
+//deleta um cadastro
 int excluir_Aluno(dados listaAluno[], int qtdAluno)
 {
     printf("Excluir Aluno\n");
@@ -161,7 +152,7 @@ int excluir_Aluno(dados listaAluno[], int qtdAluno)
 
     if (matricula < 0)
     {
-        return matricula_invalida;
+        return MATRICULA_INVALIDA;
     }
 
     for (int i = 0; i < qtdAluno; i++)
@@ -169,13 +160,14 @@ int excluir_Aluno(dados listaAluno[], int qtdAluno)
         if (listaAluno[i].matricula == matricula && listaAluno[i].ativo)
         {
             listaAluno[i].ativo = 0;
-            return exclusao_Aluno;
+            return EXCLUSAO_ALUNO;
         }
     }
 
-    return matricula_inexistente;
+    return MATRICULA_ALUNO_INEXISTENTE;
 }
 
+//ordena por sexo
 void listarAlunosPorSexo(dados listaAluno[], int qtdAluno, char sexo)
 {
     printf("Listar Alunos por Sexo (%c)\n", sexo);
@@ -192,6 +184,7 @@ void listarAlunosPorSexo(dados listaAluno[], int qtdAluno, char sexo)
     }
 }
 
+//ordena por nome
 void listarAlunosOrdenadosPorNome(dados listaAluno[], int qtdAluno)
 {
     printf("Listar Alunos Ordenados por Nome\n");
@@ -210,6 +203,7 @@ void listarAlunosOrdenadosPorNome(dados listaAluno[], int qtdAluno)
     listar(listaAluno, qtdAluno);
 }
 
+//ordena por idade
 void listarAlunosOrdenadosPorDataNascimento(dados listaAluno[], int qtdAluno)
 {
     printf("Listar Alunos Ordenados por Data de Nascimento\n");
@@ -229,6 +223,8 @@ void listarAlunosOrdenadosPorDataNascimento(dados listaAluno[], int qtdAluno)
     }
     listar(listaAluno, qtdAluno);
 }
+
+//testa se o CPF recebido eh valido
 bool validar_cpf(dados aluno)
 {
     char cpf[12];
@@ -261,6 +257,8 @@ bool validar_cpf(dados aluno)
     digito2 = (resto < 2) ? 0 : 11 - resto;
     return (digito1 == (cpf[9] - '0') && digito2 == (cpf[10] - '0'));
 }
+
+//devolve quantas disciplinas cada aluno tem
 int contarDisciplinasPorAluno(Disc listaDisc[], int qtdDisc, int matriculaAluno) {
     int contador = 0;
     for (int j = 0; j < qtdDisc; j++) {
@@ -274,6 +272,8 @@ int contarDisciplinasPorAluno(Disc listaDisc[], int qtdDisc, int matriculaAluno)
     }
     return contador;
 }
+
+//procura quantos alunos esta vinculado a menos de 3 disciplinas
 void listarAlunosPoucasDisciplinas(dados listaAluno[], Disc listaDisc[], int qtdAluno, int qtdDisc) {
     printf("Os alunos matriculados em menos de 3 disciplinas são: \n");
     for(int i=0; i<qtdAluno; i++){
@@ -287,6 +287,8 @@ void listarAlunosPoucasDisciplinas(dados listaAluno[], Disc listaDisc[], int qtd
         }
     }
 }
+
+//procura alunos pelo nome da entrada com no minimo 3 letras 
 void pesquisa_aluno(dados listaAluno[], int qtdAluno)
 {
     char busca[100];
@@ -312,10 +314,12 @@ void pesquisa_aluno(dados listaAluno[], int qtdAluno)
     if (countAlunos == 0)
         printf("Nenhum aluno encontrado.\n");
 }
+
+//vincula a matricula do aluno digitada com o id da disciplina 
 void adicionarAlunoDisciplina(dados listaAluno[], int qtdAluno, Disc listaDisc[], int qtdDisc){
     int i, j=0, qtdMatriculas=0;
     int temp = -1;
-    for(int i=0; i<maxDisciplinas; i++){
+    for(int i=0; i<MAX_DISCIPLINAS; i++){
     listaAluno[qtdAluno].disciplinasMatriculadas[i] = 0;
     }
     while(temp != 0){
@@ -332,7 +336,7 @@ void adicionarAlunoDisciplina(dados listaAluno[], int qtdAluno, Disc listaDisc[]
                 }
             }
             if(verificador == 1){                
-                if(qtdMatriculas<maxDisciplinas){
+                if(qtdMatriculas<MAX_DISCIPLINAS){
                     int jaMatriculado=0;
                     for(i=0; i<qtdMatriculas; i++){
                         if(temp == listaAluno[qtdAluno].disciplinasMatriculadas[i]){

@@ -91,7 +91,7 @@ getchar();
     for (int i = 0; i < qtdDisc; i++) {
         if (listaDisc[i].codigo == codigo && listaDisc[i].ativo) {
             printf("Digite o novo nome da disciplina: ");
-            fgets(listaDisc[i].nome, tam_nome, stdin);
+            fgets(listaDisc[i].nome, TAM_NOME, stdin);
 
             printf("Digite o numero do semestre: ");
             scanf("%d", &listaDisc[i].semestre);
